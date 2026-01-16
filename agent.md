@@ -91,7 +91,7 @@ Main Topic
 
 ### Card Creation
 - Minimum 5 cards per major concept
-- Maximum 20 words per question/answer for clarity
+- Answers preferably under 20 words for clarity
 - Include at least one "why" or "how" question per topic
 - Use concrete examples for abstract concepts
 - Create inverse cards for important relationships
