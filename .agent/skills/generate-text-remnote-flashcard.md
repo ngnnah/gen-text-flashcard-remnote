@@ -103,9 +103,25 @@ Question >>A)
 ## Workflow
 
 ### Phase 1: Ingest
-- If URL: browse and extract educational content
-- If YouTube: extract transcript or key points
-- If text: analyze directly
+
+**Article/Blog URL:**
+- Extract main content, skip nav/ads/comments
+- Focus on headings, definitions, key points
+
+**YouTube URL:**
+- Extract transcript or video description
+- Focus on main concepts explained, skip filler/intros
+- Include timestamps only for complex explanations
+
+**Technical Docs:**
+- Focus on APIs, functions, syntax
+- Use cloze for code patterns
+- Include common gotchas/errors
+
+**Personal Notes:**
+- Respect user's terminology
+- Focus on areas marked important
+- Convert bullet points to proper card types
 
 ### Phase 2: Pedagogical Analysis
 Categorize content into:
