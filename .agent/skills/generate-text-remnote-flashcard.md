@@ -85,22 +85,27 @@ For text to import correctly into Remnote:
   - Wrong answer C
 ```
 
-## Output Template
+## Output
 
+**Always save output to a file** in `output/` directory for proper indentation:
+- Filename: `output/[topic-slug].txt`
+- User copies from file → pastes into Remnote
+
+### Template
 ```
-- Topic Name
-  - Source: URL here
-  - Tags: #tag1 #tag2
-  - Main Concept :: Definition here
-    - key property ;; value
-  - Related Concept :: Another definition
-  - A {{cloze}} for important facts
+Topic Name
+  Source: URL here
+  Tags: #tag1 #tag2
+  Main Concept :: Definition here
+    key property ;; value
+  Related Concept :: Another definition
+  A {{cloze}} for important facts
 ```
 
-**RULES:**
-- Start each line with `-` for proper bullet import
-- Use 2 spaces for each indent level
+### Rules
+- 2 spaces per indent level (exact)
 - Plain `Source:` NOT `Source::` (avoids creating unwanted card)
+- No `-` dash prefix needed
 - Keep it minimal — essential info only
 
 ## Card Budget (LESS IS MORE)

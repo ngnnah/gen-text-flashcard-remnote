@@ -42,14 +42,17 @@ Each line starts with `-` for proper bullet import:
 
 ## Import to Remnote
 
-1. Copy generated output
-2. Paste into Remnote
-3. Done — bullets and cards auto-format
+1. Flashcards are saved to `output/[topic].txt`
+2. Open the file, select all (Cmd+A), copy (Cmd+C)
+3. Paste into Remnote
+
+The `::`, `;;`, `>>`, `{{}}` syntax auto-converts to flashcards.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
+| `output/` | Generated flashcard files (copy from here) |
 | `.agent/skills/generate-text-remnote-flashcard.md` | Full skill spec |
 | `AGENTS.md` | Quick reference |
 | `EXAMPLES.md` | Sample outputs |
