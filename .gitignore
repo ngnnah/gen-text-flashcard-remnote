@@ -1,0 +1,26 @@
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Build artifacts (if any)
+dist/
+build/
+*.log
+
+# User-generated content (examples)
+my-flashcards.txt
+my-notes.md
+test-*.md
