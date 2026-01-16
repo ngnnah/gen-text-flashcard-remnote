@@ -4,48 +4,47 @@ AI-powered flashcard generator using [Remnote's native import syntax](https://he
 
 ## What It Does
 
-Generates study flashcards from:
-- 📄 Website URLs (articles, blogs, docs)
-- 🎬 YouTube videos (with transcripts)
-- 📝 Personal notes or selected text
+Generates **minimal, high-quality** flashcards from:
+- 📄 Website URLs
+- 🎬 YouTube videos
+- 📝 Personal notes
 
-Uses the **Concept/Descriptor Framework** — Remnote's recommended approach for structured learning.
+Focus: Essential knowledge only. Quality over quantity.
 
 ## Usage
 
 ```
 Generate Remnote flashcards from https://example.com/article
-Create flashcards from this YouTube: https://youtube.com/...
-Make study cards from my notes
 ```
 
 ## Output Format
 
-Cards use Remnote's native syntax (not Q:/A: format):
+Each line starts with `-` for proper bullet import:
 
 ```
-Machine Learning :: A subset of AI where systems learn from data
-  key types ;; supervised, unsupervised, reinforcement
-  
-A {{neural network}} learns by adjusting {{weights}}.
+- Topic Name
+  - Source: https://example.com
+  - Tags: #topic
+  - Concept :: Definition here
+    - property ;; value
+  - A {{cloze}} for key facts
 ```
 
 ## Syntax Quick Reference
 
 | Card Type | Syntax |
 |-----------|--------|
-| Concept (definition) | `Name :: Definition` |
-| Descriptor (property) | `  prop ;; value` |
-| Basic Q&A | `Question >> Answer` |
-| Cloze | `{{hidden text}}` |
-| Multi-line answer | `Question >>>` + nested items |
-| Multiple choice | `Question >>A)` + nested items |
+| Concept | `- Name :: Definition` |
+| Descriptor | `  - prop ;; value` |
+| Basic Q&A | `- Question >> Answer` |
+| Cloze | `- Text with {{hidden}}` |
+| Multi-line | `- Question >>>` + nested |
 
 ## Import to Remnote
 
 1. Copy generated output
-2. Paste into Remnote document
-3. Done — syntax auto-converts to flashcards
+2. Paste into Remnote
+3. Done — bullets and cards auto-format
 
 ## Files
 
@@ -57,6 +56,5 @@ A {{neural network}} learns by adjusting {{weights}}.
 
 ## References
 
-- [Remnote: Import Flashcards from Text](https://help.remnote.com/en/articles/9252072-how-to-import-flashcards-from-text)
+- [Remnote: Import from Text](https://help.remnote.com/en/articles/9252072-how-to-import-flashcards-from-text)
 - [Remnote: Concept/Descriptor Framework](https://help.remnote.com/en/articles/6026154-structuring-knowledge-with-the-concept-descriptor-framework)
-- [Remnote: Creating Flashcards](https://help.remnote.com/en/articles/6025481-creating-flashcards)

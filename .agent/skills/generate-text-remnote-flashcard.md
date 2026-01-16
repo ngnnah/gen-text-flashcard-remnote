@@ -1,7 +1,7 @@
 ---
 name: Remnote Flashcard Generator
 description: Generate optimized flashcards from URLs, YouTube videos, or notes for Remnote import
-version: 2.0.0
+version: 2.2.0
 triggers:
   - generate remnote flashcards
   - create flashcards from
@@ -10,8 +10,8 @@ triggers:
 parameters:
   card_budget:
     type: number
-    default: 15
-    description: Target number of cards (auto-adjusts based on content length)
+    default: 10
+    description: Target number of cards (keep minimal — essential info only)
   style:
     type: enum
     values: [concept, basic, cloze, mixed]
@@ -26,166 +26,104 @@ parameters:
 
 # Remnote Flashcard Generator
 
-Generate optimized flashcards using Remnote's native syntax and Concept/Descriptor Framework.
+Generate minimal, high-quality flashcards using Remnote's native syntax. Focus on essential knowledge only.
 
-## Remnote Import Syntax Reference
+## CRITICAL: Import Format Rules
 
-### Basic Cards
-```
-Question >> Answer                    # Forward only
-Question << Answer                    # Backward only  
-Question <> Answer                    # Both directions
-Question >- Answer                    # Disabled (no flashcard)
-```
+For text to import correctly into Remnote:
+1. **Each line = one bullet point** (use `-` dash prefix or just newlines)
+2. **Indentation = nesting** (use consistent 2 spaces per level)
+3. **No special characters** in topic names (avoid colons, semicolons in non-flashcard text)
+4. **Topic headings** should be plain text, not use `::` unless it's a concept to learn
 
-### Concept Cards (RECOMMENDED - bold text, bidirectional by default)
+## Remnote Flashcard Syntax
+
+### Basic Cards (simplest, most reliable)
 ```
-Concept Name :: Definition            # Both directions
-Concept Name :> Definition            # Forward only
-Concept Name :< Definition            # Backward only
-Concept Name :- Definition            # Disabled
+- Question >> Answer
+- Question <> Answer (bidirectional)
 ```
 
-### Descriptor Cards (italic text, indented under Concepts)
+### Concept Cards (bold, bidirectional by default)
 ```
-property ;; value                     # Forward only
-property ;< value                     # Backward only
-property ;;< value                    # Both directions
-property ;- value                     # Disabled
+- Concept Name :: Definition here
+```
+
+### Descriptor Cards (italic, nested under concepts)
+```
+- Concept Name :: Definition
+  - property ;; value
+  - another property ;; value
 ```
 
 ### Cloze Deletions
 ```
-This is a {{cloze deletion}} example.
-Multiple {{clozes}} in {{one line}}.
-With hint: {{answer}}{({hint text})}
+- This is a {{cloze deletion}} example
+- With hint: {{answer}}{({hint text})}
 ```
 
-### Multi-line Cards (nested items become card content)
+### Multi-line Cards
 ```
-Question >>>                          # Forward multi-line
+- Question >>>
   - Answer item 1
   - Answer item 2
 ```
 
-### List-Answer Cards (numbered list on back)
+### List-Answer Cards
 ```
-Question >>1.                         # Forward list
-  - First item
-  - Second item
+- What are the three types >>1.
+  - First type
+  - Second type
+  - Third type
 ```
 
-### Multiple Choice (first answer = correct)
+### Multiple Choice (first = correct)
 ```
-Question >>A)
-  - Correct answer (always first)
+- Which is correct >>A)
+  - Correct answer
   - Wrong answer B
   - Wrong answer C
 ```
 
-### Hierarchy and Indentation
-- Use consistent spaces for nesting (2 or 4 spaces)
-- Dashes `-` at line start become bullet points
-- Nested items under Concepts become Descriptors
-
-## Concept/Descriptor Framework (CDF)
-
-The recommended approach for structured learning:
-
-1. **Concepts** = Things (concrete or abstract) — shown in **bold**
-2. **Descriptors** = Properties/questions about concepts — shown in *italics*
-3. Descriptors indent under their parent Concept
-
-### Example Structure
-```
-Cell :: The basic structural unit of all living organisms
-  contains ;; cytoplasm, nucleus, and organelles
-  function ;; to carry out life processes
-
-Mitochondria :: Organelles that produce energy for the cell
-  nickname ;; "powerhouse of the cell"
-  origin ;; thought to have evolved from bacteria (endosymbiosis)
-```
-
-## Workflow
-
-### Phase 1: Extract & Analyze
-1. Identify input type (URL, YouTube, text, file)
-2. Extract content structure
-3. Identify key concepts, definitions, relationships
-4. Map concept hierarchy
-
-### Phase 2: Generate Cards
-Apply these principles:
-- **Use Concept/Descriptor Framework** for structured topics
-- **One concept per card** (atomic principle)
-- **Concepts** for definitions of things
-- **Descriptors** for properties/attributes under concepts
-- **Cloze** for facts-in-context
-- **Basic cards** only when CDF doesn't fit
-
-Card budget heuristics:
-- Short content (<500 words): 5-8 cards
-- Medium (500-1500 words): 10-15 cards
-- Long (1500+ words): 15-25 cards
-- Videos: ~1 card per 2 minutes
-
-### Phase 3: Format & QA
-- Verify Remnote syntax is correct
-- Add metadata header
-- Organize hierarchically
-
 ## Output Template
 
 ```
-# Topic Title
-
-Source:: [URL or description]
-Generated:: [date]
-Cards:: [count]
-Tags:: #tag1 #tag2
-
----
-
-Main Concept :: Definition here
-  property ;; value
-  another property ;; value
-
-Related Concept :: Another definition
-  attribute ;; detail
-
-## Additional Context (if needed)
-
-Standalone fact with {{cloze deletion}} for emphasis.
-
-Complex Question >>>
-  - Answer point 1
-  - Answer point 2
+- Topic Name
+  - Source: URL here
+  - Tags: #tag1 #tag2
+  - Main Concept :: Definition here
+    - key property ;; value
+  - Related Concept :: Another definition
+  - A {{cloze}} for important facts
 ```
 
-## Card Type Selection Guide
+**RULES:**
+- Start each line with `-` for proper bullet import
+- Use 2 spaces for each indent level
+- Plain `Source:` NOT `Source::` (avoids creating unwanted card)
+- Keep it minimal — essential info only
 
-| Content Type | Recommended Format | Example |
-|--------------|-------------------|---------|
-| Definition of a thing | Concept `::` | `Photosynthesis :: Process plants use to convert light to energy` |
-| Property of a thing | Descriptor `;;` | `  location ;; chloroplasts` |
-| Fact in context | Cloze `{{}}` | `Plants use {{chlorophyll}} to capture light` |
-| Simple Q&A | Basic `>>` | `What color is chlorophyll >> Green` |
-| List of items | List `>>1.` | `Steps of photosynthesis >>1.` |
-| Process steps | Multi-line `>>>` | `How photosynthesis works >>>` |
+## Card Budget (LESS IS MORE)
+
+- Most articles: 5-10 cards max
+- Long/complex content: 10-15 cards max
+- Videos: 5-8 cards
+- Ask: "Will I need to recall this?" — if unsure, skip it
 
 ## Best Practices
 
-1. **Prefer Concepts over Basic cards** — better for search and cross-references
-2. **Nest Descriptors under Concepts** — creates logical structure
-3. **Use bidirectional Concepts** (`::`) — tests both name→definition and definition→name
-4. **Keep cloze text short** — 1-5 words per deletion
-5. **Capitalize Concepts, lowercase Descriptors** — Remnote convention
+1. **Quality over quantity** — fewer strong cards beat many weak ones
+2. **Essential knowledge only** — skip trivia, filler, obvious facts
+3. **Prefer Concepts** (`::`) — better for structured learning
+4. **Keep cloze short** — 1-3 words per deletion
+5. **Test**: "Would I need to recall this in real life?"
 
-## Error Handling
+## Card Type Selection
 
-**URL inaccessible**: "Unable to access URL. Please check the link or paste content directly."
-
-**No transcript**: "YouTube transcript unavailable. Provide a video with captions or paste transcript."
-
-**Insufficient content**: "Content too short for meaningful cards. Generated [X] cards."
+| Content Type | Format | Example |
+|--------------|--------|---------|
+| Definition | `::` | `- Photosynthesis :: Process converting light to energy` |
+| Property | `;;` | `  - location ;; chloroplasts` |
+| Simple fact | `>>` | `- Chlorophyll color >> Green` |
+| Fact in context | `{{}}` | `- Plants use {{chlorophyll}} to capture light` |
+| List | `>>1.` | `- Steps of X >>1.` |

@@ -41,8 +41,8 @@ Question >>A)             # multiple choice (first = correct)
 ```
 # Machine Learning Basics
 
-Source:: https://example.com/ml-intro
-Tags:: #machinelearning #AI
+Source: https://example.com/ml-intro
+Tags: #machinelearning #AI
 
 Machine Learning :: A subset of AI where systems learn patterns from data
   key difference from traditional programming ;; learns from data rather than explicit rules
@@ -68,3 +68,21 @@ A {{neural network}} learns by adjusting {{weights}} through {{backpropagation}}
 1. Copy generated output
 2. Paste directly into Remnote document
 3. Cards auto-convert based on `::`, `;;`, `>>`, `{{}}` syntax
+
+## IMPORTANT: Metadata Format
+
+Use plain text (no `::`) for non-card info:
+```
+Source: URL here          # plain colon, NOT ::
+Tags: #tag1 #tag2
+```
+
+`::` creates a Concept flashcard — only use for actual content to learn!
+
+## Card Quality Over Quantity
+
+- Focus on **essential, testable knowledge** only
+- Skip trivial details, examples-for-examples-sake, filler
+- Ask: "Will I need to recall this?" — if no, don't make a card
+- Target 5-10 cards for most articles (fewer is often better)
+- One strong concept card > three weak ones
