@@ -1,7 +1,7 @@
 ---
 name: Remnote Flashcard Generator
 description: Generate optimized flashcards from URLs, YouTube videos, or notes for Remnote import
-version: 2.2.0
+version: 3.0.0
 triggers:
   - generate remnote flashcards
   - create flashcards from
@@ -28,85 +28,122 @@ parameters:
 
 Generate minimal, high-quality flashcards using Remnote's native syntax. Focus on essential knowledge only.
 
-## CRITICAL: Import Format Rules
+## Core Philosophy (Scientific Learning)
 
-For text to import correctly into Remnote:
-1. **Each line = one bullet point** (use `-` dash prefix or just newlines)
-2. **Indentation = nesting** (use consistent 2 spaces per level)
-3. **No special characters** in topic names (avoid colons, semicolons in non-flashcard text)
-4. **Topic headings** should be plain text, not use `::` unless it's a concept to learn
+### 1. Minimum Information Principle
+- **One idea per card** — prevents memorizing paragraph shapes instead of answers
+- Complex ideas must be broken into atomic pieces
+- If a card has "and" connecting two ideas, split it
 
-## Remnote Flashcard Syntax
+### 2. Active Recall
+- Never use passive statements
+- Convert "X is Y" → "What is X? >> Y"
+- Force the brain to retrieve, not recognize
 
-### Basic Cards (simplest, most reliable)
+### 3. Structure Mapping
+- `>>>` for **unordered sets** (attributes, examples) — stored as "collection"
+- `>>1.` for **ordered sequences** (steps, processes) — stored as "sequence"
+- Brain categorizes these differently in memory
+
+### 4. Cloze Usage
+- Use `{{cloze}}` for: lists, sequences, code syntax, formulas
+- Do NOT use cloze for definitions — use Concept `::` instead
+- Keep cloze text short (1-3 words)
+
+## Remnote Import Syntax
+
+### Basic Cards (simplest)
 ```
-- Question >> Answer
-- Question <> Answer (bidirectional)
+Question >> Answer
+Question <> Answer (bidirectional)
 ```
 
-### Concept Cards (bold, bidirectional by default)
+### Concept Cards (recommended for definitions)
 ```
-- Concept Name :: Definition here
+Concept Name :: Definition here
 ```
 
-### Descriptor Cards (italic, nested under concepts)
+### Descriptor Cards (nested properties)
 ```
-- Concept Name :: Definition
-  - property ;; value
-  - another property ;; value
+Concept Name :: Definition
+  property ;; value
+  another property ;; value
 ```
 
 ### Cloze Deletions
 ```
-- This is a {{cloze deletion}} example
-- With hint: {{answer}}{({hint text})}
+The {{mitochondria}} is the powerhouse of the cell.
+With hint: {{answer}}{({hint text})}
 ```
 
-### Multi-line Cards
+### Multi-line Cards (unordered — use for attributes/examples)
 ```
-- Question >>>
-  - Answer item 1
-  - Answer item 2
+Complex Concept >>>
+  Attribute 1
+  Attribute 2
+  Attribute 3
 ```
 
-### List-Answer Cards
+### List-Answer Cards (ordered — use for sequences/steps)
 ```
-- What are the three types >>1.
-  - First type
-  - Second type
-  - Third type
+Process Name >>1.
+  Step 1
+  Step 2
+  Step 3
 ```
 
 ### Multiple Choice (first = correct)
 ```
-- Which is correct >>A)
-  - Correct answer
-  - Wrong answer B
-  - Wrong answer C
+Question >>A)
+  Correct answer
+  Distractor 1
+  Distractor 2
 ```
 
-## Output
+## Workflow
 
-**Always save output to a file** in `output/` directory for proper indentation:
-- Filename: `output/[topic-slug].txt`
-- User copies from file → pastes into Remnote
+### Phase 1: Ingest
+- If URL: browse and extract educational content
+- If YouTube: extract transcript or key points
+- If text: analyze directly
+
+### Phase 2: Pedagogical Analysis
+Categorize content into:
+- **Concepts** (Principles, Definitions) → use `::`
+- **Facts** (Data, Attributes) → use `;;` descriptors
+- **Processes** (Sequences, Steps) → use `>>1.`
+- **Collections** (Examples, Lists) → use `>>>`
+
+### Phase 3: Convert Passive → Active
+- "X is defined as Y" → `X :: Y`
+- "The steps are A, B, C" → `Steps >>1.` with nested items
+- "Examples include A, B, C" → `Examples >>>` with nested items
+
+### Phase 4: Output
+**Always save to file:** `output/[topic-slug].txt`
+
+## Output Format
+
+**CRITICAL: Indentation**
+- Use exactly 2 spaces per indent level
+- Proper nesting = proper bullet hierarchy in Remnote
+- No `-` dash prefix needed
 
 ### Template
 ```
 Topic Name
   Source: URL here
   Tags: #tag1 #tag2
-  Main Concept :: Definition here
+  Concept :: Definition here
     key property ;; value
-  Related Concept :: Another definition
-  A {{cloze}} for important facts
+  Another Concept :: Definition
+  Process Name >>1.
+    Step 1
+    Step 2
+  Key fact with {{cloze}} for emphasis.
 ```
 
-### Rules
-- 2 spaces per indent level (exact)
-- Plain `Source:` NOT `Source::` (avoids creating unwanted card)
-- No `-` dash prefix needed
-- Keep it minimal — essential info only
+**IMPORTANT:** Use plain `Source:` NOT `Source::` — double colon creates a flashcard!
 
 ## Card Budget (LESS IS MORE)
 
@@ -119,16 +156,17 @@ Topic Name
 
 1. **Quality over quantity** — fewer strong cards beat many weak ones
 2. **Essential knowledge only** — skip trivia, filler, obvious facts
-3. **Prefer Concepts** (`::`) — better for structured learning
-4. **Keep cloze short** — 1-3 words per deletion
-5. **Test**: "Would I need to recall this in real life?"
+3. **Atomic cards** — one idea per card, split if needed
+4. **Active phrasing** — force retrieval, not recognition
+5. **Right structure** — `>>>` for sets, `>>1.` for sequences
 
 ## Card Type Selection
 
 | Content Type | Format | Example |
 |--------------|--------|---------|
-| Definition | `::` | `- Photosynthesis :: Process converting light to energy` |
-| Property | `;;` | `  - location ;; chloroplasts` |
-| Simple fact | `>>` | `- Chlorophyll color >> Green` |
-| Fact in context | `{{}}` | `- Plants use {{chlorophyll}} to capture light` |
-| List | `>>1.` | `- Steps of X >>1.` |
+| Definition | `::` | `Photosynthesis :: Process converting light to energy` |
+| Property | `;;` | `  location ;; chloroplasts` |
+| Simple Q&A | `>>` | `What color is chlorophyll >> Green` |
+| Fact in context | `{{}}` | `Plants use {{chlorophyll}} to capture light` |
+| Unordered list | `>>>` | `Types of cells >>>` |
+| Ordered sequence | `>>1.` | `Steps of mitosis >>1.` |
