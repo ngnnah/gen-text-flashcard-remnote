@@ -1,0 +1,25 @@
+# Concept Descriptor Framework
+
+Source: https://www.youtube.com/watch?v=hPNvPiYralc
+Tags: #notetaking #remnote #learning
+
+Concept Descriptor Framework :: A 5-step note-taking method that structures notes around concepts and descriptors, enabling automatic flashcard generation
+  core principle ;; learning process matters more than time spent
+
+Step 1: Identify Concepts :: Write down names of important things (key terms, nouns) from the material
+
+Step 2: Define Concepts :: Write a concise 1-2 sentence definition capturing the core idea
+  key question to ask ;; "What is the most important part of this idea?"
+
+Step 3: Add Descriptors :: Add extra questions or details about each concept
+  what to include ;; questions from material or your own curiosity
+
+Descriptor :: A question or property indented underneath a concept
+  formatting tip ;; use shorthand ("consistency" not "what is the consistency")
+
+Step 4: Organize Hierarchically :: Indent descriptors under concepts using Tab to create nested structure
+  benefit ;; breaks complex ideas into brain-sized components
+
+Step 5: Use the Knowledge :: Apply notes through search, flashcard practice, and building upon them
+
+Three benefits of this method >> structures ideas in your brain, creates searchable references, generates flashcards automatically

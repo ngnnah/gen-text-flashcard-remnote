@@ -67,6 +67,11 @@ A {{neural network}} learns by adjusting {{weights}} through {{backpropagation}}
 
 **Always save flashcards to:** `output/[topic-slug].txt`
 
+**CRITICAL: Indentation**
+- Use exactly 2 spaces per indent level
+- Proper nesting = proper bullet hierarchy in Remnote
+- No `-` dash prefix needed, just spaces
+
 User workflow:
 1. Open the generated file
 2. Cmd+A, Cmd+C (select all, copy)
