@@ -63,11 +63,14 @@ A {{neural network}} learns by adjusting {{weights}} through {{backpropagation}}
 | `card_budget` | 15 | any number |
 | `detail_level` | standard | overview, standard, comprehensive |
 
-## Import to Remnote
+## Output
 
-1. Copy generated output
-2. Paste directly into Remnote document
-3. Cards auto-convert based on `::`, `;;`, `>>`, `{{}}` syntax
+**Always save flashcards to:** `output/[topic-slug].txt`
+
+User workflow:
+1. Open the generated file
+2. Cmd+A, Cmd+C (select all, copy)
+3. Paste into Remnote
 
 ## IMPORTANT: Metadata Format
 
