@@ -1,181 +1,123 @@
-# Flashcard Examples
+# Remnote Flashcard Examples
 
-Real examples showing the expected output format.
+Examples using correct Remnote import syntax.
 
 ---
 
-## Example 1: Technical Article
-
-**Input**: Article about "Introduction to Neural Networks"
-
-### Output:
+## Example 1: Technical Article (Concept/Descriptor Style)
 
 ```
-# Neural Networks Overview
+# Neural Networks
 
-**Source:** https://example.com/neural-networks-intro
-**Generated:** 2024-01-15
-**Cards:** 12
-**Tags:** #neuralnetworks #deeplearning #AI
+Source:: https://example.com/neural-networks-intro
+Tags:: #AI #deeplearning
 
----
+Neural Network :: A computing system inspired by biological neurons that learns from examples
+  main components ;; input layer, hidden layers, output layer
+  training algorithm ;; backpropagation
+  key characteristic ;; learns hierarchical representations
 
-## Cards
+Backpropagation :: Algorithm that calculates gradients to adjust weights and minimize error
+  direction ;; propagates error backward through network
+  purpose ;; optimize weights to improve predictions
 
-Q: What is a neural network?
-A: A computing system inspired by biological neurons that learns from examples
+Deep Learning :: Neural networks with multiple hidden layers
+  advantage ;; can learn hierarchical representations
+  requirement ;; large amounts of training data
 
-Q: What are the three layers of a basic neural network?
-A: Input layer, hidden layer(s), and output layer
-
-Q: What do activation functions do?
-A: Introduce non-linearity and determine if a neuron fires
-
-Q: What is backpropagation?
-A: Algorithm that calculates gradients to adjust weights and minimize error
-
-Q: What makes a network "deep"?
-A: Having multiple hidden layers
-
----
-
-## Outline
-
-Neural Networks
-  Architecture
-    {{Input layer}} receives data
-    {{Hidden layers}} process information
-    {{Output layer}} produces predictions
-  Training
-    Forward propagation → Loss calculation → {{Backpropagation}}
+The {{input layer}} receives data, {{hidden layers}} process it, and the {{output layer}} produces predictions.
 ```
 
 ---
 
-## Example 2: YouTube Video
-
-**Input**: Video "Effective Study Techniques" (15 min)
-
-### Output:
+## Example 2: YouTube Video (Mixed Style)
 
 ```
-# Study Techniques
+# Effective Study Techniques
 
-**Source:** https://youtube.com/watch?v=abc123
-**Generated:** 2024-01-15
-**Cards:** 10
-**Tags:** #study #learning #productivity
+Source:: https://youtube.com/watch?v=abc123
+Tags:: #study #learning #productivity
 
----
+Pomodoro Technique :: A time management method using 25-minute focused work sessions
+  work duration ;; 25 minutes
+  break duration ;; 5 minutes (3:42)
+  benefit ;; maintains focus and prevents burnout
 
-## Cards
+Active Recall :: Testing yourself rather than passively re-reading material
+  key principle ;; retrieval strengthens memory more than review
+  how to apply ;; self-test without looking at notes
 
-Q: What is the Pomodoro Technique?
-A: 25-minute focused work sessions followed by 5-minute breaks
+Spaced Repetition :: Reviewing information at increasing intervals
+  benefit ;; strengthens long-term memory
+  mechanism ;; leverages the spacing effect
 
-Q: What is active recall?
-A: Testing yourself rather than passively re-reading (3:42)
-
-Q: How does spaced repetition work?
-A: Reviewing at increasing intervals to strengthen long-term memory
-
-Q: What is the Feynman Technique?
-A: Explaining a concept simply, as if teaching someone else (8:15)
-
----
-
-## Outline
-
-Study Methods
-  Pomodoro
-    {{25 min}} work, {{5 min}} break
-    Prevents burnout
-  Spaced Repetition
-    Review at {{increasing intervals}}
-  Active Recall
-    Self-test without notes
+The {{spacing effect}} means learning is greater when studying is {{spread out over time}}.
 ```
 
 ---
 
-## Example 3: Personal Notes
-
-**Input**: User notes on JavaScript Promises
-
-### Output:
+## Example 3: Personal Notes (Concept-Heavy)
 
 ```
 # JavaScript Promises
 
-**Source:** Personal notes
-**Generated:** 2024-01-15
-**Cards:** 8
-**Tags:** #javascript #async #programming
+Source:: Personal notes
+Tags:: #javascript #async #programming
 
----
+Promise :: An object representing the eventual completion or failure of an async operation
+  states ;; pending, fulfilled, rejected
+  advantage ;; cleaner async code than callbacks
 
-## Cards
+Promise States >>>
+  - Pending: initial state
+  - Fulfilled: operation completed successfully  
+  - Rejected: operation failed
 
-Q: What is a Promise in JavaScript?
-A: An object representing eventual completion or failure of an async operation
+Promise.all() :: Takes array of promises, resolves when all fulfill, rejects if any rejects
+  use case ;; waiting for multiple async operations
 
-Q: What are the three Promise states?
-A: Pending, fulfilled, rejected
+Promise.race() :: Resolves or rejects as soon as the first promise settles
+  difference from Promise.all() ;; only waits for first, not all
 
-Q: What method handles a fulfilled Promise?
-A: .then()
-
-Q: What method handles a rejected Promise?
-A: .catch()
-
-Q: What does Promise.all() do?
-A: Resolves when all promises fulfill, rejects if any rejects
-
-Q: Difference between Promise.all() and Promise.race()?
-A: all() waits for all; race() resolves on first settled
-
----
-
-## Outline
-
-Promises
-  States
-    {{Pending}} → {{Fulfilled}} or {{Rejected}}
-  Methods
-    .then() for success
-    .catch() for errors
-    .finally() runs always
+Common Promise Methods >>1.
+  - .then() for success
+  - .catch() for errors
+  - .finally() runs regardless of outcome
 ```
 
 ---
 
-## Card Patterns
+## Example 4: Multiple Choice
 
-### Definition
 ```
-Q: What is [term]?
-A: [Concise definition]
-```
+# Biology Quiz
 
-### Comparison
-```
-Q: Difference between [A] and [B]?
-A: [Key difference]
-```
+Which organelle produces ATP >>A)
+  - Mitochondria
+  - Nucleus
+  - Ribosome
+  - Golgi apparatus
 
-### Process
-```
-Q: Steps to [do X]?
-A: 1) First, 2) Then, 3) Finally
+What is the powerhouse of the cell >>A)
+  - Mitochondria
+  - Chloroplast
+  - Endoplasmic reticulum
+  - Lysosome
 ```
 
-### Why/How
-```
-Q: Why is [X] important?
-A: Because [reason]
-```
+---
 
-### Cloze in Context
-```
-{{Term}} is used for {{purpose}}.
-```
+## Syntax Cheat Sheet
+
+| Type | Syntax | Result |
+|------|--------|--------|
+| Concept (bidirectional) | `Name :: Definition` | Tests both directions |
+| Concept (forward only) | `Name :> Definition` | Shows name, asks definition |
+| Descriptor | `  prop ;; value` | Property of parent concept |
+| Basic forward | `Q >> A` | Simple Q&A |
+| Basic bidirectional | `Q <> A` | Tests both directions |
+| Cloze | `{{hidden}}` | Fill in blank |
+| Cloze with hint | `{{answer}}{({hint})}` | Shows hint during review |
+| Multi-line | `Q >>>` + nested items | List as answer |
+| Numbered list | `Q >>1.` + nested items | Ordered list answer |
+| Multiple choice | `Q >>A)` + nested items | First = correct |

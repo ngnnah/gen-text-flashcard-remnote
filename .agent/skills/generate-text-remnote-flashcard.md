@@ -1,7 +1,7 @@
 ---
 name: Remnote Flashcard Generator
 description: Generate optimized flashcards from URLs, YouTube videos, or notes for Remnote import
-version: 1.1.0
+version: 2.0.0
 triggers:
   - generate remnote flashcards
   - create flashcards from
@@ -14,159 +14,173 @@ parameters:
     description: Target number of cards (auto-adjusts based on content length)
   style:
     type: enum
-    values: [qa, cloze, mixed, outline]
-    default: mixed
-    description: Card format style
+    values: [concept, basic, cloze, mixed]
+    default: concept
+    description: Card format style (concept recommended for structured learning)
   detail_level:
     type: enum
     values: [overview, standard, comprehensive]
     default: standard
     description: Depth of coverage
-  include_timestamps:
-    type: enum
-    values: [auto, always, never]
-    default: auto
-    description: Include video timestamps (YouTube only)
 ---
 
 # Remnote Flashcard Generator
 
-Generate optimized flashcards for Remnote import using evidence-based learning principles.
+Generate optimized flashcards using Remnote's native syntax and Concept/Descriptor Framework.
+
+## Remnote Import Syntax Reference
+
+### Basic Cards
+```
+Question >> Answer                    # Forward only
+Question << Answer                    # Backward only  
+Question <> Answer                    # Both directions
+Question >- Answer                    # Disabled (no flashcard)
+```
+
+### Concept Cards (RECOMMENDED - bold text, bidirectional by default)
+```
+Concept Name :: Definition            # Both directions
+Concept Name :> Definition            # Forward only
+Concept Name :< Definition            # Backward only
+Concept Name :- Definition            # Disabled
+```
+
+### Descriptor Cards (italic text, indented under Concepts)
+```
+property ;; value                     # Forward only
+property ;< value                     # Backward only
+property ;;< value                    # Both directions
+property ;- value                     # Disabled
+```
+
+### Cloze Deletions
+```
+This is a {{cloze deletion}} example.
+Multiple {{clozes}} in {{one line}}.
+With hint: {{answer}}{({hint text})}
+```
+
+### Multi-line Cards (nested items become card content)
+```
+Question >>>                          # Forward multi-line
+  - Answer item 1
+  - Answer item 2
+```
+
+### List-Answer Cards (numbered list on back)
+```
+Question >>1.                         # Forward list
+  - First item
+  - Second item
+```
+
+### Multiple Choice (first answer = correct)
+```
+Question >>A)
+  - Correct answer (always first)
+  - Wrong answer B
+  - Wrong answer C
+```
+
+### Hierarchy and Indentation
+- Use consistent spaces for nesting (2 or 4 spaces)
+- Dashes `-` at line start become bullet points
+- Nested items under Concepts become Descriptors
+
+## Concept/Descriptor Framework (CDF)
+
+The recommended approach for structured learning:
+
+1. **Concepts** = Things (concrete or abstract) — shown in **bold**
+2. **Descriptors** = Properties/questions about concepts — shown in *italics*
+3. Descriptors indent under their parent Concept
+
+### Example Structure
+```
+Cell :: The basic structural unit of all living organisms
+  contains ;; cytoplasm, nucleus, and organelles
+  function ;; to carry out life processes
+
+Mitochondria :: Organelles that produce energy for the cell
+  nickname ;; "powerhouse of the cell"
+  origin ;; thought to have evolved from bacteria (endosymbiosis)
+```
 
 ## Workflow
 
 ### Phase 1: Extract & Analyze
 1. Identify input type (URL, YouTube, text, file)
-2. Extract content and structure
+2. Extract content structure
 3. Identify key concepts, definitions, relationships
-4. Create outline of main topics
+4. Map concept hierarchy
 
 ### Phase 2: Generate Cards
-Apply these rules:
+Apply these principles:
+- **Use Concept/Descriptor Framework** for structured topics
 - **One concept per card** (atomic principle)
-- **Active recall**: Questions require retrieval, not recognition
-- **Concise answers**: Under 20 words when possible
-- **No yes/no questions** unless meaningful
-- **Include context** where needed for clarity
+- **Concepts** for definitions of things
+- **Descriptors** for properties/attributes under concepts
+- **Cloze** for facts-in-context
+- **Basic cards** only when CDF doesn't fit
 
 Card budget heuristics:
 - Short content (<500 words): 5-8 cards
-- Medium (500-1500 words): 10-15 cards  
+- Medium (500-1500 words): 10-15 cards
 - Long (1500+ words): 15-25 cards
 - Videos: ~1 card per 2 minutes
 
 ### Phase 3: Format & QA
-- Deduplicate similar cards
-- Verify Remnote formatting compliance
-- Add metadata block
-- Flag uncertain items for review
+- Verify Remnote syntax is correct
+- Add metadata header
+- Organize hierarchically
 
 ## Output Template
 
-Always produce this structure:
-
 ```
-# [Topic Title]
+# Topic Title
 
-**Source:** [URL or description]
-**Generated:** [date]
-**Cards:** [count]
-**Tags:** #tag1 #tag2
+Source:: [URL or description]
+Generated:: [date]
+Cards:: [count]
+Tags:: #tag1 #tag2
 
 ---
 
-## Cards
+Main Concept :: Definition here
+  property ;; value
+  another property ;; value
 
-Q: [Question]
-A: [Answer]
+Related Concept :: Another definition
+  attribute ;; detail
 
-Q: [Question]  
-A: [Answer]
+## Additional Context (if needed)
 
----
+Standalone fact with {{cloze deletion}} for emphasis.
 
-## Outline (if applicable)
-
-Topic
-  Subtopic
-    {{cloze}} detail
-    {{cloze}} detail
-
----
-
-## Review Notes (if any)
-- [Uncertain items or suggestions]
+Complex Question >>>
+  - Answer point 1
+  - Answer point 2
 ```
 
-## Remnote Format Rules
+## Card Type Selection Guide
 
-### Q&A Cards
-```
-Q: What is X?
-A: Definition here
-```
+| Content Type | Recommended Format | Example |
+|--------------|-------------------|---------|
+| Definition of a thing | Concept `::` | `Photosynthesis :: Process plants use to convert light to energy` |
+| Property of a thing | Descriptor `;;` | `  location ;; chloroplasts` |
+| Fact in context | Cloze `{{}}` | `Plants use {{chlorophyll}} to capture light` |
+| Simple Q&A | Basic `>>` | `What color is chlorophyll >> Green` |
+| List of items | List `>>1.` | `Steps of photosynthesis >>1.` |
+| Process steps | Multi-line `>>>` | `How photosynthesis works >>>` |
 
-### Cloze Deletions
-```
-{{Term}} is defined as {{definition}}.
-```
-- Use `{{double braces}}` for cloze
-- Avoid nested braces
-- Keep cloze text short (1-5 words)
+## Best Practices
 
-### Hierarchical Outline
-```
-Parent Topic
-  Child Topic
-    Detail with {{cloze}}
-```
-- Use **2 spaces** for indentation (not tabs)
-- Remnote converts hierarchy to cards automatically
-
-### Safe Formatting
-- Avoid code blocks inside outlines
-- Escape colons in card text if needed
-- Keep bullet lists simple (single level preferred)
-
-## Card Types by Content
-
-### Definitions
-```
-Q: What is [term]?
-A: [Concise definition]
-```
-
-### Relationships  
-```
-Q: How does [A] relate to [B]?
-A: [Relationship]
-```
-
-### Processes
-```
-Q: What are the steps in [process]?
-A: 1) First, 2) Then, 3) Finally
-```
-
-### Comparisons
-```
-Q: What is the difference between [A] and [B]?
-A: [Key difference]
-```
-
-### Why/How (Elaborative)
-```
-Q: Why is [X] important?
-A: Because [reason]
-```
-
-## YouTube-Specific
-
-When processing videos:
-- Focus on key concepts, not filler
-- Include timestamps for complex explanations: `(12:34)`
-- Place timestamps at end of answer or in outline
-- Summarize demonstrations, don't transcribe verbatim
+1. **Prefer Concepts over Basic cards** — better for search and cross-references
+2. **Nest Descriptors under Concepts** — creates logical structure
+3. **Use bidirectional Concepts** (`::`) — tests both name→definition and definition→name
+4. **Keep cloze text short** — 1-5 words per deletion
+5. **Capitalize Concepts, lowercase Descriptors** — Remnote convention
 
 ## Error Handling
 
@@ -175,13 +189,3 @@ When processing videos:
 **No transcript**: "YouTube transcript unavailable. Provide a video with captions or paste transcript."
 
 **Insufficient content**: "Content too short for meaningful cards. Generated [X] cards."
-
-## Quality Checklist
-
-Before output:
-- [ ] Each card = one concept
-- [ ] Questions are specific and clear
-- [ ] Answers are concise
-- [ ] Format is Remnote-compatible
-- [ ] Metadata included
-- [ ] No duplicate cards

@@ -1,70 +1,70 @@
 # Remnote Flashcard Generator
 
-Generate flashcards from URLs, YouTube videos, or notes for [Remnote](https://www.remnote.com/) import.
+Generate flashcards using Remnote's native syntax from URLs, YouTube videos, or notes.
 
 ## Quick Start
 
 Say: `Generate Remnote flashcards from [URL/content]`
 
-Examples:
-- "Generate Remnote flashcards from https://example.com/article"
-- "Create flashcards from this YouTube video: https://youtube.com/watch?v=..."
-- "Make study cards from my notes" (with text selected or file open)
+## Remnote Syntax Quick Reference
 
-## Configuration
+### Concepts (definitions of things — **bold**, bidirectional)
+```
+Concept Name :: Definition
+```
 
-See `.agent/skills/generate-text-remnote-flashcard.md` for the full skill spec.
+### Descriptors (properties — *italic*, under concepts)
+```
+  property ;; value
+```
 
-### Parameters (can specify in prompt)
+### Basic Cards
+```
+Question >> Answer        # forward
+Question <> Answer        # bidirectional
+```
+
+### Cloze
+```
+Text with {{hidden part}} revealed on back.
+```
+
+### Multi-line / Lists
+```
+Question >>>              # nested items = answer
+Question >>1.             # numbered list answer
+Question >>A)             # multiple choice (first = correct)
+```
+
+## Example Output
+
+```
+# Machine Learning Basics
+
+Source:: https://example.com/ml-intro
+Tags:: #machinelearning #AI
+
+Machine Learning :: A subset of AI where systems learn patterns from data
+  key difference from traditional programming ;; learns from data rather than explicit rules
+  main types ;; supervised, unsupervised, reinforcement learning
+
+Neural Network :: Computing system inspired by biological neurons
+  components ;; input layer, hidden layers, output layer
+  training method ;; backpropagation
+
+A {{neural network}} learns by adjusting {{weights}} through {{backpropagation}}.
+```
+
+## Parameters
 
 | Parameter | Default | Options |
 |-----------|---------|---------|
-| `card_budget` | 15 | Any number |
-| `style` | mixed | qa, cloze, mixed, outline |
+| `style` | concept | concept, basic, cloze, mixed |
+| `card_budget` | 15 | any number |
 | `detail_level` | standard | overview, standard, comprehensive |
 
-Example: "Generate 10 cloze flashcards with comprehensive detail from..."
+## Import to Remnote
 
-## Learning Principles
-
-Cards follow evidence-based practices:
-- **Atomic**: One concept per card
-- **Active recall**: Questions require retrieval
-- **Elaborative**: Includes "why/how" questions
-- **Concise**: Answers under 20 words
-
-## Output Format
-
-Cards are formatted for direct paste into Remnote:
-
-```
-# Topic Title
-
-**Source:** URL
-**Generated:** date
-**Cards:** count
-**Tags:** #topic
-
----
-
-Q: Question?
-A: Answer
-
-Topic Outline
-  Subtopic
-    {{cloze}} detail
-```
-
-## Importing to Remnote
-
-1. Copy the generated output
-2. Paste into a Remnote document
-3. Cards are created automatically from Q:/A: format
-4. Hierarchical outlines become nested flashcards
-
-## Tips
-
-- Specify card count if you want more/fewer cards
-- Request specific style: "only cloze" or "only Q&A"
-- Focus on topics: "flashcards about X from this article"
-- Review generated cards before studying
+1. Copy generated output
+2. Paste directly into Remnote document
+3. Cards auto-convert based on `::`, `;;`, `>>`, `{{}}` syntax

@@ -1,6 +1,6 @@
-# Gen-Text-Flashcard-Remnote
+# Remnote Flashcard Generator
 
-AI-powered flashcard generator for [Remnote](https://www.remnote.com/) using VSCode/Ampcode.
+AI-powered flashcard generator using [Remnote's native import syntax](https://help.remnote.com/en/articles/9252072-how-to-import-flashcards-from-text).
 
 ## What It Does
 
@@ -9,53 +9,54 @@ Generates study flashcards from:
 - 🎬 YouTube videos (with transcripts)
 - 📝 Personal notes or selected text
 
-Cards follow evidence-based learning principles (active recall, atomic concepts, spaced repetition).
-
-## Setup
-
-### For Ampcode
-
-The skill is ready to use. Files are in `.agent/skills/`.
-
-### For Other AI Editors
-
-Copy the skill spec from `.agent/skills/generate-text-remnote-flashcard.md` to your editor's agent configuration.
+Uses the **Concept/Descriptor Framework** — Remnote's recommended approach for structured learning.
 
 ## Usage
 
 ```
 Generate Remnote flashcards from https://example.com/article
-Create 10 cloze flashcards from this YouTube: https://youtube.com/...
-Make study cards from my notes (with file open or text selected)
+Create flashcards from this YouTube: https://youtube.com/...
+Make study cards from my notes
 ```
 
-### Customize
+## Output Format
 
-- **Card count**: "Generate 20 flashcards..."
-- **Style**: "Create only cloze cards..." or "Q&A format only..."
-- **Focus**: "Flashcards about neural networks from..."
-- **Detail**: "Comprehensive flashcards..." or "Quick overview cards..."
+Cards use Remnote's native syntax (not Q:/A: format):
+
+```
+Machine Learning :: A subset of AI where systems learn from data
+  key types ;; supervised, unsupervised, reinforcement
+  
+A {{neural network}} learns by adjusting {{weights}}.
+```
+
+## Syntax Quick Reference
+
+| Card Type | Syntax |
+|-----------|--------|
+| Concept (definition) | `Name :: Definition` |
+| Descriptor (property) | `  prop ;; value` |
+| Basic Q&A | `Question >> Answer` |
+| Cloze | `{{hidden text}}` |
+| Multi-line answer | `Question >>>` + nested items |
+| Multiple choice | `Question >>A)` + nested items |
 
 ## Import to Remnote
 
 1. Copy generated output
 2. Paste into Remnote document
-3. Done — cards auto-format
+3. Done — syntax auto-converts to flashcards
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `.agent/skills/generate-text-remnote-flashcard.md` | Skill spec (the AI instructions) |
-| `AGENTS.md` | Quick reference for the agent |
+| `.agent/skills/generate-text-remnote-flashcard.md` | Full skill spec |
+| `AGENTS.md` | Quick reference |
 | `EXAMPLES.md` | Sample outputs |
 
-## Limitations
+## References
 
-- YouTube needs available captions/transcript
-- Works best with text-heavy content
-- Visual diagrams won't be captured
-
-## License
-
-Open source. Use freely.
+- [Remnote: Import Flashcards from Text](https://help.remnote.com/en/articles/9252072-how-to-import-flashcards-from-text)
+- [Remnote: Concept/Descriptor Framework](https://help.remnote.com/en/articles/6026154-structuring-knowledge-with-the-concept-descriptor-framework)
+- [Remnote: Creating Flashcards](https://help.remnote.com/en/articles/6025481-creating-flashcards)
