@@ -65,7 +65,9 @@ A {{neural network}} learns by adjusting {{weights}} through {{backpropagation}}
 
 ## Output
 
-**Always save flashcards to:** `output/[topic-slug].txt`
+**Always save flashcards to:** `output/YYYY-MM-DD-topic-slug.txt`
+
+Example: `output/2026-01-18-machine-learning-basics.txt`
 
 **CRITICAL: Indentation**
 - Use exactly 2 spaces per indent level
