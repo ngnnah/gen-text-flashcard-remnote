@@ -1,0 +1,27 @@
+Source: Probability Theory Lesson - Sample Spaces and Probability Laws
+Tags: #probability #mathematics #samplespaces #statistics
+
+# Probability: Sample Spaces and Laws
+
+What are the three types of sample spaces? >> Finite discrete (fixed number of outcomes), infinite discrete/countable (sequence like 1,2,3,...), and continuous/uncountable (dense like points in a square)
+
+What is the defining characteristic of a countable set? >> Its elements can be arranged in a sequence (A₁, A₂, A₃, ...)
+
+Countable Additivity Axiom :: For disjoint events A₁, A₂, A₃... in a sequence: P(∪Aᵢ) = ΣP(Aᵢ)
+
+Why was Countable Additivity needed beyond Finite Additivity? >> Finite additivity only covers limited events; Countable Additivity handles infinitely many disjoint events in a sequence
+
+Geometric Series Formula :: For |r| < 1: Σ(n=0 to ∞) rⁿ = 1/(1-r)
+
+How do you handle an infinite sum starting at n=1 when the geometric series formula starts at n=0? >> Factor out the first term to re-index (e.g., Σ(n=1 to ∞) 1/2ⁿ = 1/2 × Σ(n=0 to ∞) 1/2ⁿ)
+
+The Listability Test :: Countable sets are like an infinite line—you can list (1st, 2nd, 3rd...). Uncountable sets are like a crowded beach—you cannot sequence them
+
+Can you find the probability of a unit square by summing individual point probabilities? >> No. Points have zero probability, and the square is uncountable—you cannot arrange points in a sequence to apply additivity
+
+The 0=1 Paradox shows why {{additivity fails}} for {{uncountable sets}}—every point has probability {{0}}, but the total must be {{1}}.
+
+What is the "Sanity Check" for probability laws? >> Total probability of all outcomes must equal 1
+
+Calculate P(even outcomes) where outcomes are 2,4,6,... and P(n)=1/2ⁿ >>>
+  1/4 × (1 + 1/4 + 1/4² + ...) = 1/4 × [1/(1-1/4)] = 1/3
