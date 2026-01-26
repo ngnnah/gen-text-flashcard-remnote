@@ -1,0 +1,1 @@
+../../../.agent/skills/generate-text-remnote-flashcard.md

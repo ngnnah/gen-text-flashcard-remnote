@@ -24,3 +24,7 @@ build/
 my-flashcards.txt
 my-notes.md
 test-*.md
+
+# Claude Code local settings (personal, not shared)
+.claude.local.md
+.claude/settings.local.json

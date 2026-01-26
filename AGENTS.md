@@ -96,3 +96,18 @@ Tags: #tag1 #tag2
 - Ask: "Will I need to recall this?" — if no, don't make a card
 - Target 5-10 cards for most articles (fewer is often better)
 - One strong concept card > three weak ones
+
+---
+
+## Project Info
+
+- **No build/test pipeline:** This repo is content- and agent-driven; no scripts or test runners
+- **No code execution:** Generates text files only
+- **No external dependencies:** Core functionality requires no APIs
+- **Integration:** Output designed for direct copy-paste into [Remnote import](https://help.remnote.com/en/articles/9252072-how-to-import-flashcards-from-text)
+
+### References
+- [AGENTS.md](AGENTS.md) — This file (quick reference)
+- [.agent/skills/](/.agent/skills/) — Full skill spec with workflow details
+- [output/](output/) — Generated flashcard examples
+- [README.md](README.md) — User workflow and file purposes
